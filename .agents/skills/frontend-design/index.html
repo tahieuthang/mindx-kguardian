@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DockLearn - Nền tảng Học tập DevOps & Lập trình hàng đầu</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <!-- Lucide Icons (Sleek modern icons) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <!-- Announcement Bar -->
+  <div class="announcement-bar" id="promo-bar">
+    <div class="container announcement-content">
+      <span class="badge-promo">ƯU ĐÃI THÁNG 6</span>
+      <p>Sẵn sàng bứt phá sự nghiệp! Giảm giá đến <strong>85%</strong> cho các khóa học DevOps & Cloud. Kết thúc sau:
+        <span id="timer" class="timer-highlight">00:00:00</span>
+      </p>
+      <button class="close-promo" id="close-promo-btn" aria-label="Đóng"><i data-lucide="x"></i></button>
+    </div>
+  </div>
+
+  <!-- Header / Navigation -->
+  <header class="main-header">
+    <div class="container header-container">
+      <!-- Logo -->
+      <a href="#" class="logo-wrapper">
+        <div class="logo-icon">
+          <span class="logo-box box-1"></span>
+          <span class="logo-box box-2"></span>
+          <span class="logo-box box-3"></span>
+          <span class="logo-box box-4"></span>
+        </div>
+        <span class="logo-text">Dock<span>Learn</span></span>
+      </a>
+
+      <!-- Categories Dropdown -->
+      <div class="category-dropdown-container">
+        <button class="nav-btn category-btn">
+          <i data-lucide="grid"></i>
+          <span>Thể loại</span>
+          <i data-lucide="chevron-down" class="chevron-icon"></i>
+        </button>
+        <div class="category-dropdown-menu">
+          <div class="category-submenu-item">
+            <a href="#"><i data-lucide="code-2"></i> Lập trình Web</a>
+            <div class="category-sub-submenu">
+              <a href="#">ReactJS & Next.js</a>
+              <a href="#">JavaScript Nâng cao</a>
+              <a href="#">NodeJS & Express</a>
+              <a href="#">TypeScript Mastery</a>
+            </div>
+          </div>
+          <div class="category-submenu-item">
+            <a href="#"><i data-lucide="container"></i> Cloud & DevOps</a>
+            <div class="category-sub-submenu">
+              <a href="#">Docker Containerization</a>
+              <a href="#">Kubernetes in Production</a>
+              <a href="#">CI/CD Pipeline Automation</a>
+              <a href="#">AWS Cloud Practitioner</a>
+            </div>
+          </div>
+          <div class="category-submenu-item">
+            <a href="#"><i data-lucide="shield-check"></i> Bảo mật mạng</a>
+          </div>
+          <div class="category-submenu-item">
+            <a href="#"><i data-lucide="database"></i> Cơ sở dữ liệu</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="search-bar-wrapper">
+        <form class="search-form" id="search-form">
+          <button type="submit" class="search-submit-btn"><i data-lucide="search"></i></button>
+          <input type="text" placeholder="Tìm kiếm khóa học lập trình, DevOps, Docker..." class="search-input"
+            id="search-input">
+          <button type="button" class="search-clear-btn" id="search-clear"><i data-lucide="x"></i></button>
+        </form>
+      </div>
+
+      <!-- Extra Nav Links -->
+      <nav class="desktop-nav">
+        <a href="#" class="nav-link">DockLearn Business</a>
+        <a href="#" class="nav-link">Trở thành Giảng viên</a>
+      </nav>
+
+      <!-- User Actions -->
+      <div class="user-actions">
+        <!-- Cart -->
+        <a href="#" class="cart-icon-btn">
+          <i data-lucide="shopping-cart"></i>
+          <span class="cart-badge">3</span>
+        </a>
+
+        <!-- Theme Toggle -->
+        <button class="theme-toggle-btn" id="theme-toggle" title="Chuyển đổi giao diện">
+          <i data-lucide="moon" class="icon-moon"></i>
+          <i data-lucide="sun" class="icon-sun"></i>
+        </button>
+
+        <!-- Auth Buttons -->
+        <a href="#" class="btn btn-outline login-btn">Đăng nhập</a>
+        <a href="#" class="btn btn-primary signup-btn">Đăng ký</a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button class="mobile-menu-btn" id="mobile-toggle">
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Sidebar Overlay -->
+  <div class="mobile-sidebar-overlay" id="mobile-overlay"></div>
+  <aside class="mobile-sidebar" id="mobile-sidebar">
+    <div class="sidebar-header">
+      <a href="#" class="logo-wrapper">
+        <div class="logo-icon">
+          <span class="logo-box box-1"></span>
+          <span class="logo-box box-2"></span>
+          <span class="logo-box box-3"></span>
+          <span class="logo-box box-4"></span>
+        </div>
+        <span class="logo-text">Dock<span>Learn</span></span>
+      </a>
+      <button class="close-sidebar" id="close-sidebar-btn"><i data-lucide="x"></i></button>
+    </div>
+    <div class="sidebar-search">
+      <form class="search-form">
+        <input type="text" placeholder="Tìm kiếm khóa học..." class="search-input">
+        <button type="submit" class="search-submit-btn"><i data-lucide="search"></i></button>
+      </form>
+    </div>
+    <div class="sidebar-links">
+      <div class="sidebar-group">
+        <h3>Thể loại phổ biến</h3>
+        <a href="#"><i data-lucide="code-2"></i> Lập trình Web</a>
+        <a href="#"><i data-lucide="container"></i> Cloud & DevOps</a>
+        <a href="#"><i data-lucide="database"></i> Cơ sở dữ liệu</a>
+      </div>
+      <div class="sidebar-group">
+        <h3>Tài nguyên</h3>
+        <a href="#">DockLearn Business</a>
+        <a href="#">Trở thành Giảng viên</a>
+        <a href="#">Hỗ trợ</a>
+      </div>
+    </div>
+    <div class="sidebar-footer">
+      <a href="#" class="btn btn-outline w-100 mb-2">Đăng nhập</a>
+      <a href="#" class="btn btn-primary w-100">Đăng ký</a>
+    </div>
+  </aside>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-tag">
+            <span class="pulse-dot"></span>
+            Học chuẩn Docker & DevOps chuyên nghiệp
+          </div>
+          <h1>Làm chủ công nghệ.<br>Đóng gói tương lai.</h1>
+          <p>Học từ các chuyên gia DevOps hàng đầu. Thực hành lab trực quan trực tiếp trên nền tảng đám mây. Đạt chứng
+            chỉ quốc tế nâng tầm sự nghiệp của bạn.</p>
+
+          <div class="hero-search-box">
+            <input type="text" placeholder="Bạn muốn học gì hôm nay? Ví dụ: Kubernetes..." class="hero-search-input">
+            <button class="btn btn-primary hero-search-btn">Tìm kiếm</button>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-number">45K+</span>
+              <span class="stat-label">Học viên</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">120+</span>
+              <span class="stat-label">Khóa học chuyên sâu</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">4.8★</span>
+              <span class="stat-label">Đánh giá trung bình</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-image-area">
+          <div class="hero-image-wrapper">
+            <div class="glow-bg"></div>
+            <img src="./assets/hero.png" alt="E-learning DevOps" class="hero-image">
+
+            <!-- Floating Glass Cards for design wow-factor -->
+            <div class="floating-glass-card card-top">
+              <div class="fg-icon docker-blue"><i data-lucide="container"></i></div>
+              <div class="fg-info">
+                <h4>Docker Course</h4>
+                <p>98% Completion Rate</p>
+              </div>
+            </div>
+
+            <div class="floating-glass-card card-bottom">
+              <div class="fg-icon docker-cyan"><i data-lucide="terminal"></i></div>
+              <div class="fg-info">
+                <h4>Live Lab Terminal</h4>
+                <p>Thực hành ngay trên Web</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trusted By / Partners Section -->
+    <section class="partners-section">
+      <div class="container">
+        <p class="partners-title">Được tin tưởng bởi các kỹ sư tại các tập đoàn công nghệ hàng đầu</p>
+        <div class="partners-logos">
+          <div class="partner-logo"><i data-lucide="globe"></i> <span>Docker Hub</span></div>
+          <div class="partner-logo"><i data-lucide="github"></i> <span>GitHub</span></div>
+          <div class="partner-logo"><i data-lucide="cloud"></i> <span>Google Cloud</span></div>
+          <div class="partner-logo"><i data-lucide="server"></i> <span>AWS Academy</span></div>
+          <div class="partner-logo"><i data-lucide="cpu"></i> <span>Kubernetes</span></div>
+          <div class="partner-logo"><i data-lucide="terminal"></i> <span>HashiCorp</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Courses Tabs Showcase -->
+    <section class="courses-section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Học viên đang học nhiều nhất</h2>
+            <p class="section-subtitle">Lựa chọn hàng đầu để bắt đầu hành trình chinh phục DevOps & phát triển phần mềm
+            </p>
+          </div>
+          <div class="carousel-nav-buttons">
+            <button class="carousel-nav-btn prev-btn" id="prev-course"><i data-lucide="chevron-left"></i></button>
+            <button class="carousel-nav-btn next-btn" id="next-course"><i data-lucide="chevron-right"></i></button>
+          </div>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="course-tabs-wrapper">
+          <div class="course-tabs" id="course-tabs">
+            <button class="tab-btn active" data-category="all">Tất cả</button>
+            <button class="tab-btn" data-category="devops">DevOps & Cloud</button>
+            <button class="tab-btn" data-category="frontend">Frontend & React</button>
+            <button class="tab-btn" data-category="javascript">JavaScript & Backend</button>
+          </div>
+        </div>
+
+        <!-- Courses Grid / Container -->
+        <div class="courses-grid-container">
+          <div class="courses-grid" id="courses-grid">
+
+            <!-- Course Card 1: Docker (using course_docker.png) -->
+            <div class="course-card" data-category="devops" data-id="docker-mastery">
+              <div class="course-badge">Bán chạy nhất</div>
+              <div class="course-image-container">
+                <img src="./assets/course_docker.png" alt="Docker Masterclass" class="course-card-img">
+                <div class="course-overlay">
+                  <span class="play-btn-circle"><i data-lucide="play"></i></span>
+                  <span class="preview-text">Xem trước khóa học</span>
+                </div>
+              </div>
+              <div class="course-info">
+                <h3 class="course-title">Docker Masterclass: Từ Cơ Bản đến Chuyên Gia Cloud & DevOps</h3>
+                <p class="course-instructor">Bởi Alex Container-King, DevOps Tech Lead</p>
+                <div class="course-rating">
+                  <span class="rating-number">4.9</span>
+                  <div class="stars">
+                    <i data-lucide="star" class="star-filled"></i>
+                    <i data-lucide="star" class="star-filled"></i>
+                    <i data-lucide="star" class="star-filled"></i>
+                    <i data-lucide="star" class="star-filled"></i>
+                    <i data-lucide="star" class="star-filled"></i>
+                  </div>
+                  <span class="rating-count">(8,421 đánh giá)</span>
+                </div>
+                <div class="course-pricing">
+                  <span class="current-price">299.000đ</span>
+                  <span class="original-price">1.999.000đ</span>
+                </div>
+              </div>
+
+              <!-- Udemy-style Popover (Detailed tooltips built in HTML structure, animated with CSS) -->
+              <div class="course-popover">
+                <div class="popover-content">
+                  <span class="popover-updated">Cập nhật mới nhất: 05/2026</span>
+                  <h4 class="popover-title">Docker Masterclass: Từ Cơ Bản đến Chuyên Gia Cloud & DevOps</h4>
+                  <div class="popover-badges">
+                    <span class="badge-accent">Bán chạy nhất</span>
+                    <span class="badge-level">Mọi cấp độ</span>
+                  </div>
+                  <p class="popover-desc">Làm chủ Docker, Docker Compose, Swarm và tích hợp CI/CD Pipelines chuyên
+                    nghiệp. Học thực hành thực tế 100%.</p>
+
+                  <div class="popover-bullets">
+                    <h5>Bạn sẽ học được gì:</h5>
+                    <ul>
+                      <li><i data-lucide="check"></i> Xây dựng, đóng gói và triển khai ứng dụng thực tế với Docker</li>
+                      <li><i data-lucide="check"></i> Thiết lập Docker Compose đa dịch vụ (Frontend, Backend, DB)</li>
+                      <li><i data-lucide="check"></i> Tối ưu hóa dung lượng Docker Image và bảo mật Container</li>
+                      <li><i data-lucide="check"></i> Hiểu sâu về Docker Networking, Volumes, & Bind Mounts</li>
+                    </ul>
+                  </div>
+                  <div class="popover-actions">
+                    <button class="btn btn-primary add-to-cart-pop-btn">Thêm vào giỏ hàng</button>
+                    <button class="btn-wishlist"><i data-lucide="heart"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Course Card 2: React (using course_react.png) -->
+            <div class="course-card" data-category="frontend" data-id="react-mastery">
+              <div class="course-badge badge-new">Mới</div>
+              <div class="course-image-container">
+                <img src="./assets/course_react.png" alt="React & NextJS Complete Guide" class="course-card-img">
+                <div class="course-overlay">
+                  <span class="play-btn-circle"><i data-lucide="play"></i></span>
+                  <span class="preview-text">Xem trước khóa học</span>
+                </div>
+              </div>
+              <div class="course-info">
+                <h3 class="course-title">React & Next.js Toàn Diện: Xây dựng Enterprise Web App</h3>
+                <p class="course-instructor">Bởi Sarah Developer, Senior Frontend Engineer</p>
+                <div class="course-rating">
+                  <span class="rating-number">4.8</span>
+                  <div class="stars">
+                    <i data-lucide="star" class="star-filled"></i>
+                    <i data-lucide="star" class="star-filled"></i>
+                    <i data-lucide="star" class="star-filled"></i>
+                    <i data-lucide="star" class="star-filled"></i>
+                    <i data-lucide="star" class="star-half"></i>
+                  </div>
+                  <span class="rating-count">(3,105 đánh giá)</span>
+                </div>
+                <div class="course-pricing">
+                  <span class="current-price">349.000đ</span>
+                  <span class="original-price">2.499.000đ</span>
+                </div>
+              </div>
+
+              <!-- Udemy-style Popover -->
+              <div class="course-popover">
+                <div class="popover-content">
+                  <span class="popover-updated">Cập nhật mới nhất: 06/2026</span>
+                  <h4 class="popover-title">React & Next.js Toàn Diện: Xây dựng Enterprise Web App</h4>
+                  <div class="popover-badges">
+                    <span class="badge-accent accent-new">Mới nhất</span>
+                    <span class="badge-level">Nâng cao</span>
+                  </div>
+                  <p class="popover-desc">Chinh phục React 19, Next.js 15 (App Router), TailwindCSS, React Server
+                    Components và tối ưu hóa SEO.</p>
+
+                  <div class="popover-bullets">
+                    <h5>Bạn sẽ học được gì:</h5>
+                    <ul>
+                      <li><i data-lucide="check"></i> Kiến trúc Next.js App Router chi tiết và cách render tối ưu</li>
+                      <li><i data-lucide="check"></i> Quản lý State nâng cao với Redux Toolkit, Zustand</li>
+                      <li><i data-lucide="check"></i> Server Actions, Suspense và Streaming API</li>
+                      <li><i data-lucide="check"></i> Xây dựng 3 dự án SaaS quy mô thực tế</li>
+                    </ul>
+                  </div>
+                  <div class="popover-actions">
+                    <button class="btn btn-primary add-to-cart-pop-btn">Thêm vào giỏ hàng</button>
+                    <button class="btn-wishlist"><i data-lucide="heart"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Course Card 3: JS (using course_js.png) -->
+            <div class="course-card" data-category="javascript" data-id="js-deepdive">
+              <div class="course-badge">Bán chạy nhất</div>
+              <div class="course-image-container">
+                <img src="./assets/course_js.png" alt="JavaScript Deep Dive" class="course-card-img">
+                <div class="course-overlay">
+                  <span class="play-btn-circle"><i data-lucide="play"></i></span>
+                  <span class="preview-text">Xem trước khóa học</span>
+                </div>
+              </div>
+              <div class="course-info">
+                <h3 class="course-title">Javascript Mastery: Hiểu Sâu Engine, Async và ES6+ đến ES15</h3>
+                <p class="course-instructor">Bởi Kyle Coder, JavaScript Evangelist</p>
+                <div class="course-rating">
+                  <span class="rating-number">4.9</span>
+                  <div class="stars">
+                    <i data-lucide="star" class="star-filled"></i>
+                    <i data-lucide="star" class="star-filled"></i>
+                    <i data-lucide="star" class="star-filled"></i>
+                    <i data-lucide="star" class="star-filled"></i>
+                    <i data-lucide="star" class="star-filled"></i>
+                  </div>
+                  <span class="rating-count">(15,820 đánh giá)</span>
+                </div>
+                <div class="course-pricing">
+                  <span class="current-price">249.000đ</span>
+                  <span class="original-price">1.499.000đ</span>
+                </div>
+              </div>
+
+              <!-- Udemy-style Popover -->
+              <div class="course-popover">
+                <div class="popover-content">
+                  <span class="popover-updated">Cập nhật mới nhất: 04/2026</span>
+                  <h4 class="popover-title">Javascript Mastery: Hiểu Sâu Engine, Async và ES6+ đến ES15</h4>
+                  <div class="popover-badges">
+                    <span class="badge-accent">Bán chạy nhất</span>
+                    <span class="badge-level">Mọi cấp độ</span>
+                  </div>
+                  <p class="popover-desc">Vượt qua các câu hỏi phỏng vấn hóc búa nhất. Hiểu sâu JS Engine, Event Loop,
+                    Scope, Closure và lập trình bất đồng bộ nâng cao.</p>
+
+                  <div class="popover-bullets">
+                    <h5>Bạn sẽ học được gì:</h5>
+                    <ul>
+                      <li><i data-lucide="check"></i> Cơ chế vận hành của V8 Engine và Call Stack</li>
+                      <li><i data-lucide="check"></i> Lập trình bất đồng bộ: Promises, Async/Await sâu sắc</li>
+                      <li><i data-lucide="check"></i> Thiết kế Prototype, Closures và Functional Programming</li>
+                      <li><i data-lucide="check"></i> Các tính năng mới nhất từ ES6 đến ES15 (2026)</li>
+                    </ul>
+                  </div>
+                  <div class="popover-actions">
+                    <button class="btn btn-primary add-to-cart-pop-btn">Thêm vào giỏ hàng</button>
+                    <button class="btn-wishlist"><i data-lucide="heart"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Course Card 4: Kubernetes (DevOps) -->
+            <div class="course-card" data-category="devops" data-id="k8s-production">
+              <div class="course-badge badge-trend">Xu hướng</div>
+              <div class="course-image-container">
+                <!-- Fallback gradient styling when course image is not present -->
+                <div class="course-card-fallback gradient-k8s">
+                  <i data-lucide="server"></i>
+                  <span>Kubernetes Mastery</span>
+                </div>
+                <div class="course-overlay">
+                  <span class="play-btn-circle"><i data-lucide="play"></i></span>
+                  <span class="preview-text">Xem trước khóa học</span>
+                </div>
+              </div>
+              <div class="course-info">
+                <h3 class="course-title">Kubernetes in Production: Từ Deployment đến Auto-scaling</h3>
+                <p class="course-instructor">Bởi Alex Container-King, DevOps Tech Lead</p>
+                <div class="course-rating">
+                  <span class="rating-number">4.7</span>
+                  <div class="stars">
+                    <i data-lucide="star" class="star-filled"></i>
+                    <i data-lucide="star" class="star-filled"></i>
+                    <i data-lucide="star" class="star-filled"></i>
+                    <i data-lucide="star" class="star-filled"></i>
+                    <i data-lucide="star" class="star-filled"></i>
+                  </div>
+                  <span class="rating-count">(2,840 đánh giá)</span>
+                </div>
+                <div class="course-pricing">
+                  <span class="current-price">399.000đ</span>
+                  <span class="original-price">2.999.000đ</span>
+                </div>
+              </div>
+
+              <!-- Udemy-style Popover -->
+              <div class="course-popover">
+                <div class="popover-content">
+                  <span class="popover-updated">Cập nhật mới nhất: 06/2026</span>
+                  <h4 class="popover-title">Kubernetes in Production: Từ Deployment đến Auto-scaling</h4>
+                  <div class="popover-badges">
+                    <span class="badge-accent accent-trend">Xu hướng</span>
+                    <span class="badge-level">Chuyên gia</span>
+                  </div>
+                  <p class="popover-desc">Triển khai, quản lý và tự động hóa scale các ứng dụng microservices của bạn
+                    trên Production Cluster bằng K8s.</p>
+
+                  <div class="popover-bullets">
+                    <h5>Bạn sẽ học được gì:</h5>
+                    <ul>
+                      <li><i data-lucide="check"></i> Kiến trúc Kubernetes Cluster và cách cài đặt Multi-Node</li>
+                      <li><i data-lucide="check"></i> Quản lý Pods, Deployments, Services, và Ingress</li>
+                      <li><i data-lucide="check"></i> Cấu hình Auto-scaling (HPA & VPA) và Helm Charts</li>
+                      <li><i data-lucide="check"></i> Triển khai DevOps Pipelines kết hợp ArgoCD & K8s</li>
+                    </ul>
+                  </div>
+                  <div class="popover-actions">
+                    <button class="btn btn-primary add-to-cart-pop-btn">Thêm vào giỏ hàng</button>
+                    <button class="btn-wishlist"><i data-lucide="heart"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Course Card 5: Cloud Architect (DevOps) -->
+            <div class="course-card" data-category="devops" data-id="aws-solutions">
+              <div class="course-badge">Bán chạy nhất</div>
+              <div class="course-image-container">
+                <div class="course-card-fallback gradient-aws">
+                  <i data-lucide="cloud"></i>
+                  <span>AWS Architect</span>
+                </div>
+                <div class="course-overlay">
+                  <span class="play-btn-circle"><i data-lucide="play"></i></span>
+                  <span class="preview-text">Xem trước khóa học</span>
+                </div>
+              </div>
+              <div class="course-info">
+                <h3 class="course-title">Chinh phục AWS Certified Solutions Architect - Associate 2026</h3>
+                <p class="course-instructor">Bởi Frank Cloud, AWS Authorized Instructor</p>
+                <div class="course-rating">
+                  <span class="rating-number">4.8</span>
+                  <div class="stars">
+                    <i data-lucide="star" class="star-filled"></i>
+                    <i data-lucide="star" class="star-filled"></i>
+                    <i data-lucide="star" class="star-filled"></i>
+                    <i data-lucide="star" class="star-filled"></i>
+                    <i data-lucide="star" class="star-filled"></i>
+                  </div>
+                  <span class="rating-count">(9,124 đánh giá)</span>
+                </div>
+                <div class="course-pricing">
+                  <span class="current-price">349.000đ</span>
+                  <span class="original-price">2.299.000đ</span>
+                </div>
+              </div>
+
+              <!-- Udemy-style Popover -->
+              <div class="course-popover">
+                <div class="popover-content">
+                  <span class="popover-updated">Cập nhật mới nhất: 05/2026</span>
+                  <h4 class="popover-title">Chinh phục AWS Certified Solutions Architect - Associate 2026</h4>
+                  <div class="popover-badges">
+                    <span class="badge-accent">Bán chạy nhất</span>
+                    <span class="badge-level">Mọi cấp độ</span>
+                  </div>
+                  <p class="popover-desc">Vượt qua kỳ thi SAA-C03 của Amazon với hệ thống đề thi thử đa dạng và lab thực
+                    hành AWS chi tiết.</p>
+
+                  <div class="popover-bullets">
+                    <h5>Bạn sẽ học được gì:</h5>
+                    <ul>
+                      <li><i data-lucide="check"></i> Thiết kế hệ thống chịu tải cao và có tính sẵn sàng cao trên AWS
+                      </li>
+                      <li><i data-lucide="check"></i> Làm chủ EC2, S3, RDS, Lambda, VPC, IAM, DynamoDB</li>
+                      <li><i data-lucide="check"></i> Tối ưu chi phí và nâng cao bảo mật hạ tầng đám mây</li>
+                      <li><i data-lucide="check"></i> Ôn tập 5 bộ đề thi sát với đề thi thật mới nhất 2026</li>
+                    </ul>
+                  </div>
+                  <div class="popover-actions">
+                    <button class="btn btn-primary add-to-cart-pop-btn">Thêm vào giỏ hàng</button>
+                    <button class="btn-wishlist"><i data-lucide="heart"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Course Card 6: UI Design for Devs (Frontend) -->
+            <div class="course-card" data-category="frontend" data-id="ui-design">
+              <div class="course-badge badge-trend">Xu hướng</div>
+              <div class="course-image-container">
+                <div class="course-card-fallback gradient-design">
+                  <i data-lucide="palette"></i>
+                  <span>UI/UX for Developers</span>
+                </div>
+                <div class="course-overlay">
+                  <span class="play-btn-circle"><i data-lucide="play"></i></span>
+                  <span class="preview-text">Xem trước khóa học</span>
+                </div>
+              </div>
+              <div class="course-info">
+                <h3 class="course-title">UI/UX Design cho Lập trình viên: Từ Xấu đến Tuyệt Đẹp</h3>
+                <p class="course-instructor">Bởi Emma UI, UX Design Lead</p>
+                <div class="course-rating">
+                  <span class="rating-number">4.6</span>
+                  <div class="stars">
+                    <i data-lucide="star" class="star-filled"></i>
+                    <i data-lucide="star" class="star-filled"></i>
+                    <i data-lucide="star" class="star-filled"></i>
+                    <i data-lucide="star" class="star-filled"></i>
+                    <i data-lucide="star" class="star-filled"></i>
+                  </div>
+                  <span class="rating-count">(1,940 đánh giá)</span>
+                </div>
+                <div class="course-pricing">
+                  <span class="current-price">199.000đ</span>
+                  <span class="original-price">1.299.000đ</span>
+                </div>
+              </div>
+
+              <!-- Udemy-style Popover -->
+              <div class="course-popover">
+                <div class="popover-content">
+                  <span class="popover-updated">Cập nhật mới nhất: 03/2026</span>
+                  <h4 class="popover-title">UI/UX Design cho Lập trình viên: Từ Xấu đến Tuyệt Đẹp</h4>
+                  <div class="popover-badges">
+                    <span class="badge-accent accent-trend">Xu hướng</span>
+                    <span class="badge-level">Cơ bản</span>
+                  </div>
+                  <p class="popover-desc">Không còn những giao diện khô khan thô kệch. Học cách dùng Typography, Color
+                    Theory và Layout để tự thiết kế Web siêu đẹp.</p>
+
+                  <div class="popover-bullets">
+                    <h5>Bạn sẽ học được gì:</h5>
+                    <ul>
+                      <li><i data-lucide="check"></i> 7 nguyên lý cốt lõi của UI Design áp dụng ngay lập tức</li>
+                      <li><i data-lucide="check"></i> Thiết lập một hệ thống Grid và Layout cân đối, gọn gàng</li>
+                      <li><i data-lucide="check"></i> Phối màu chuyên nghiệp không sợ bị quê hoặc loè loẹt</li>
+                      <li><i data-lucide="check"></i> Sử dụng Figma cơ bản để vẽ wireframe và mockup nhanh</li>
+                    </ul>
+                  </div>
+                  <div class="popover-actions">
+                    <button class="btn btn-primary add-to-cart-pop-btn">Thêm vào giỏ hàng</button>
+                    <button class="btn-wishlist"><i data-lucide="heart"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Learning Path Component (WOW element!) -->
+    <section class="roadmap-section">
+      <div class="container">
+        <div class="roadmap-header">
+          <span class="roadmap-tag">Duy nhất tại DockLearn</span>
+          <h2>Lộ Trình Học DevOps Chuẩn Docker Desktop</h2>
+          <p>Không cần tự đoán mình cần học gì. Lựa chọn vai trò bạn muốn hướng tới và đi theo lộ trình container hóa
+            chuyên sâu được thiết kế khoa học.</p>
+        </div>
+
+        <div class="roadmap-navigator">
+          <div class="roadmap-roles">
+            <button class="role-tab active" data-role="devops-eng">DevOps Engineer</button>
+            <button class="role-tab" data-role="frontend-dev">Frontend Architect</button>
+            <button class="role-tab" data-role="fullstack-dev">Fullstack Cloud Developer</button>
+          </div>
+
+          <div class="roadmap-display">
+            <!-- DevOps Engineer Roadmap -->
+            <div class="roadmap-flow active" id="path-devops-eng">
+              <!-- Step 1 -->
+              <div class="roadmap-step completed">
+                <div class="step-num">01</div>
+                <div class="step-box">
+                  <div class="step-icon"><i data-lucide="container"></i></div>
+                  <div class="step-details">
+                    <h4>Đóng gói (Docker)</h4>
+                    <p>Học cách cô lập ứng dụng, build Dockerfile tối ưu, Docker Compose.</p>
+                    <span class="step-status"><i data-lucide="check-circle-2"></i> Hoàn thành</span>
+                  </div>
+                </div>
+              </div>
+              <div class="roadmap-connector-line"></div>
+              <!-- Step 2 -->
+              <div class="roadmap-step current">
+                <div class="step-num">02</div>
+                <div class="step-box">
+                  <div class="step-icon"><i data-lucide="git-pull-request"></i></div>
+                  <div class="step-details">
+                    <h4>Tự động hóa CI/CD</h4>
+                    <p>Thiết lập GitHub Actions, GitLab CI để tự động test & build Docker Image.</p>
+                    <span class="step-status">Đang học</span>
+                  </div>
+                </div>
+              </div>
+              <div class="roadmap-connector-line"></div>
+              <!-- Step 3 -->
+              <div class="roadmap-step locked">
+                <div class="step-num">03</div>
+                <div class="step-box">
+                  <div class="step-icon"><i data-lucide="server"></i></div>
+                  <div class="step-details">
+                    <h4>Điều phối (Kubernetes)</h4>
+                    <p>Quản lý ứng dụng quy mô lớn, tự động scale-up/scale-down trên K8s.</p>
+                    <span class="step-status"><i data-lucide="lock"></i> Đang khóa</span>
+                  </div>
+                </div>
+              </div>
+              <div class="roadmap-connector-line"></div>
+              <!-- Step 4 -->
+              <div class="roadmap-step locked">
+                <div class="step-num">04</div>
+                <div class="step-box">
+                  <div class="step-icon"><i data-lucide="activity"></i></div>
+                  <div class="step-details">
+                    <h4>Giám sát & Tối ưu</h4>
+                    <p>Sử dụng Prometheus, Grafana để vẽ biểu đồ tài nguyên và cảnh báo sự cố.</p>
+                    <span class="step-status"><i data-lucide="lock"></i> Đang khóa</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Frontend Architect Roadmap -->
+            <div class="roadmap-flow" id="path-frontend-dev">
+              <div class="roadmap-step completed">
+                <div class="step-num">01</div>
+                <div class="step-box">
+                  <div class="step-icon"><i data-lucide="code-2"></i></div>
+                  <div class="step-details">
+                    <h4>HTML/CSS & JS Core</h4>
+                    <p>Nắm vững cấu trúc Web ngữ nghĩa và cơ chế Javascript Engine.</p>
+                    <span class="step-status"><i data-lucide="check-circle-2"></i> Hoàn thành</span>
+                  </div>
+                </div>
+              </div>
+              <div class="roadmap-connector-line"></div>
+              <div class="roadmap-step current">
+                <div class="step-num">02</div>
+                <div class="step-box">
+                  <div class="step-icon"><i data-lucide="layers"></i></div>
+                  <div class="step-details">
+                    <h4>ReactJS & State Management</h4>
+                    <p>Tư duy Component, hooks, context API, Redux Toolkit hoặc Zustand.</p>
+                    <span class="step-status">Đang học</span>
+                  </div>
+                </div>
+              </div>
+              <div class="roadmap-connector-line"></div>
+              <div class="roadmap-step locked">
+                <div class="step-num">03</div>
+                <div class="step-box">
+                  <div class="step-icon"><i data-lucide="globe"></i></div>
+                  <div class="step-details">
+                    <h4>Next.js Production Ready</h4>
+                    <p>App Router, Server Side Rendering (SSR), Static Site Gen, Server Actions.</p>
+                    <span class="step-status"><i data-lucide="lock"></i> Đang khóa</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Fullstack Developer Roadmap -->
+            <div class="roadmap-flow" id="path-fullstack-dev">
+              <div class="roadmap-step completed">
+                <div class="step-num">01</div>
+                <div class="step-box">
+                  <div class="step-icon"><i data-lucide="laptop"></i></div>
+                  <div class="step-details">
+                    <h4>Frontend Core (React)</h4>
+                    <p>Thành thạo lập trình giao diện người dùng và tương tác API.</p>
+                    <span class="step-status"><i data-lucide="check-circle-2"></i> Hoàn thành</span>
+                  </div>
+                </div>
+              </div>
+              <div class="roadmap-connector-line"></div>
+              <div class="roadmap-step current">
+                <div class="step-num">02</div>
+                <div class="step-box">
+                  <div class="step-icon"><i data-lucide="database"></i></div>
+                  <div class="step-details">
+                    <h4>Backend & Databases</h4>
+                    <p>Xây dựng REST/GraphQL APIs với Node.js, Express, MongoDB/PostgreSQL.</p>
+                    <span class="step-status">Đang học</span>
+                  </div>
+                </div>
+              </div>
+              <div class="roadmap-connector-line"></div>
+              <div class="roadmap-step locked">
+                <div class="step-num">03</div>
+                <div class="step-box">
+                  <div class="step-icon"><i data-lucide="container"></i></div>
+                  <div class="step-details">
+                    <h4>Đóng gói Docker</h4>
+                    <p>Đóng gói ứng dụng Fullstack (Web + Server + DB) chạy đồng bộ với Compose.</p>
+                    <span class="step-status"><i data-lucide="lock"></i> Đang khóa</span>
+                  </div>
+                </div>
+              </div>
+              <div class="roadmap-connector-line"></div>
+              <div class="roadmap-step locked">
+                <div class="step-num">04</div>
+                <div class="step-box">
+                  <div class="step-icon"><i data-lucide="cloud"></i></div>
+                  <div class="step-details">
+                    <h4>Deploy (AWS/Vercel)</h4>
+                    <p>Triển khai Frontend lên Vercel, Backend và DB lên AWS EC2 / RDS.</p>
+                    <span class="step-status"><i data-lucide="lock"></i> Đang khóa</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why DockLearn (Benefits) -->
+    <section class="benefits-section">
+      <div class="container benefits-grid">
+        <div class="benefits-text">
+          <span class="tag-accent">Học tập đỉnh cao</span>
+          <h2>Trải nghiệm Học tập Khác biệt</h2>
+          <p>DockLearn kết hợp triết lý học đi đôi với hành cùng cơ sở hạ tầng đám mây hiện đại nhất, giúp bạn cọ xát
+            trực tiếp với môi trường làm việc thực tế.</p>
+
+          <div class="benefit-item-row">
+            <div class="bir-icon"><i data-lucide="terminal"></i></div>
+            <div class="bir-content">
+              <h4>Terminal Thực hành Trực tiếp</h4>
+              <p>Mỗi bài học đi kèm một môi trường Docker container riêng biệt chạy ngay trong trình duyệt. Không cần
+                cấu hình máy tính cá nhân phức tạp.</p>
+            </div>
+          </div>
+
+          <div class="benefit-item-row">
+            <div class="bir-icon"><i data-lucide="users"></i></div>
+            <div class="bir-content">
+              <h4>Cộng đồng DevOps & Kỹ sư năng động</h4>
+              <p>Thảo luận, hỏi đáp, tham gia các buổi review Code cùng các Tech Lead dày dặn kinh nghiệm đến từ các
+                startup kỳ lân.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="benefits-cards">
+          <div class="benefit-card">
+            <div class="bc-icon"><i data-lucide="award"></i></div>
+            <h3>Chứng chỉ Giá trị</h3>
+            <p>Chứng chỉ hoàn thành được xác thực qua Blockchain, dễ dàng đính kèm vào LinkedIn của bạn.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="bc-icon"><i data-lucide="infinity"></i></div>
+            <h3>Truy cập Trọn đời</h3>
+            <p>Mua một lần, học mãi mãi. Luôn được cập nhật các bài học mới theo phiên bản công nghệ mới nhất miễn phí.
+            </p>
+          </div>
+          <div class="benefit-card">
+            <div class="bc-icon"><i data-lucide="shield-check"></i></div>
+            <h3>Hoàn tiền 30 ngày</h3>
+            <p>Cam kết chất lượng. Hoàn lại 100% học phí không cần lý do nếu bạn cảm thấy không phù hợp.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="bc-icon"><i data-lucide="sparkles"></i></div>
+            <h3>Bài tập LAB Thực tế</h3>
+            <p>Hệ thống bài Lab thực hành thiết kế hạ tầng, xử lý sự cố server y như đi làm thực tế.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Slider Section -->
+    <section class="testimonials-section">
+      <div class="container">
+        <h2 class="section-title text-center">Học viên nói gì về DockLearn</h2>
+        <p class="section-subtitle text-center">Hàng nghìn lập trình viên đã thay đổi sự nghiệp sau các khóa học</p>
+
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <div class="t-rating">
+              <i data-lucide="star" class="star-filled"></i>
+              <i data-lucide="star" class="star-filled"></i>
+              <i data-lucide="star" class="star-filled"></i>
+              <i data-lucide="star" class="star-filled"></i>
+              <i data-lucide="star" class="star-filled"></i>
+            </div>
+            <p class="t-comment">"Khóa Docker Masterclass thực sự là cứu cánh cho tôi. Trước đây tôi rất mù mờ về
+              network và volume trong container, nhưng các bài giảng của Alex giải thích siêu trực quan."</p>
+            <div class="t-user">
+              <div class="t-avatar bg-a">TN</div>
+              <div class="t-user-info">
+                <h4>Trần Nam</h4>
+                <p>Fullstack Developer tại VNG</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="t-rating">
+              <i data-lucide="star" class="star-filled"></i>
+              <i data-lucide="star" class="star-filled"></i>
+              <i data-lucide="star" class="star-filled"></i>
+              <i data-lucide="star" class="star-filled"></i>
+              <i data-lucide="star" class="star-filled"></i>
+            </div>
+            <p class="t-comment">"Hệ thống LAB chạy trực tiếp container trên web học cực thích. Tiết kiệm được bao nhiêu
+              thời gian cài đặt lỗi trên Windows. Giờ mình đã tự tin apply vị trí DevOps."</p>
+            <div class="t-user">
+              <div class="t-avatar bg-b">MH</div>
+              <div class="t-user-info">
+                <h4>Mai Hoàng</h4>
+                <p>DevOps Engineer tại Viettel</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="t-rating">
+              <i data-lucide="star" class="star-filled"></i>
+              <i data-lucide="star" class="star-filled"></i>
+              <i data-lucide="star" class="star-filled"></i>
+              <i data-lucide="star" class="star-filled"></i>
+              <i data-lucide="star" class="star-filled"></i>
+            </div>
+            <p class="t-comment">"Khóa học Next.js giúp mình tối ưu hóa tốc độ tải trang của dự án công ty từ 5s xuống
+              còn dưới 1.2s. Cảm ơn giảng viên Sarah rất nhiều về sự tận tâm."</p>
+            <div class="t-user">
+              <div class="t-avatar bg-c">PL</div>
+              <div class="t-user-info">
+                <h4>Phương Linh</h4>
+                <p>Senior Frontend tại FPT Software</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Call To Action -->
+    <section class="cta-section">
+      <div class="glow-sphere sphere-1"></div>
+      <div class="glow-sphere sphere-2"></div>
+      <div class="container cta-container">
+        <h2>Bắt đầu tối ưu hóa kỹ năng lập trình của bạn ngay hôm nay</h2>
+        <p>Đăng ký tài khoản miễn phí để nhận ngay 3 bài học trải nghiệm và bộ tài liệu Docker Cheatsheet độc quyền.</p>
+        <div class="cta-buttons">
+          <a href="#" class="btn btn-white">Đăng ký học thử miễn phí</a>
+          <a href="#" class="btn btn-outline-white">Xem danh sách khóa học</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand-col">
+        <a href="#" class="logo-wrapper">
+          <div class="logo-icon">
+            <span class="logo-box box-1"></span>
+            <span class="logo-box box-2"></span>
+            <span class="logo-box box-3"></span>
+            <span class="logo-box box-4"></span>
+          </div>
+          <span class="logo-text">Dock<span>Learn</span></span>
+        </a>
+        <p class="footer-desc">Nền tảng đào tạo lập trình thực chiến & Cloud DevOps chất lượng cao, đồng hành cùng bạn
+          nâng tầm sự nghiệp kỹ sư phần mềm chuyên nghiệp.</p>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook"><i data-lucide="facebook"></i></a>
+          <a href="#" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+          <a href="#" aria-label="Github"><i data-lucide="github"></i></a>
+          <a href="#" aria-label="Linkedin"><i data-lucide="linkedin"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-links-col">
+        <h4>Học tập</h4>
+        <ul>
+          <li><a href="#">Lộ trình DevOps</a></li>
+          <li><a href="#">Khóa học Docker</a></li>
+          <li><a href="#">Khóa học React & Next.js</a></li>
+          <li><a href="#">Lập trình Web Frontend</a></li>
+          <li><a href="#">Lập trình Web Backend</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-col">
+        <h4>Đối tác & Doanh nghiệp</h4>
+        <ul>
+          <li><a href="#">DockLearn Business</a></li>
+          <li><a href="#">Trở thành Giảng viên</a></li>
+          <li><a href="#">Đào tạo nội bộ</a></li>
+          <li><a href="#">Tài trợ / Hợp tác</a></li>
+          <li><a href="#">Tuyển dụng</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-col">
+        <h4>Hỗ trợ & Điều khoản</h4>
+        <ul>
+          <li><a href="#">Trung tâm trợ giúp</a></li>
+          <li><a href="#">Chính sách bảo mật</a></li>
+          <li><a href="#">Điều khoản sử dụng</a></li>
+          <li><a href="#">Chính sách hoàn tiền</a></li>
+          <li><a href="#">Liên hệ với chúng tôi</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-container">
+        <p>&copy; 2026 DockLearn E-learning Platform. Đã đăng ký bản quyền.</p>
+        <div class="footer-lang">
+          <button class="lang-select-btn">
+            <i data-lucide="globe"></i>
+            <span>Tiếng Việt</span>
+            <i data-lucide="chevron-up"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mini Cart Popup/Toast Notification -->
+  <div class="cart-toast" id="cart-toast">
+    <div class="ct-icon"><i data-lucide="check-circle-2"></i></div>
+    <div class="ct-content">
+      <h4>Đã thêm vào giỏ hàng!</h4>
+      <p id="ct-course-title">Docker Masterclass...</p>
+    </div>
+    <button class="ct-close" id="ct-close"><i data-lucide="x"></i></button>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="app.js"></script>
+</body>
+
+</html>

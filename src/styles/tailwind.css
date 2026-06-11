@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+/* ─── MindX K-Guardian Design System (Tailwind v4) ────────────────── */
+@theme {
+  /* Cyberpunk / Industrial Color Palette */
+  --color-cyber-green: #00ff66;
+  --color-cyber-cyan: #00f0ff;
+  --color-cyber-amber: #ffaa00;
+  --color-cyber-red: #ff3366;
+  --color-bg-obsidian: #060913;
+  --color-bg-charcoal: #0e1326;
+  --color-bg-slate-gray: #1b223c;
+  
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "Fira Code", monospace;
+
+  --radius-panel: 0px; /* Sharp technical edges */
+  --radius-card: 0px;
+}
+
+/* ─── Global Styles & Fonts ───────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body, #app {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: var(--font-sans);
+  background: var(--color-bg-obsidian);
+  color: #e2e8f0;
+}
+
+/* ─── Custom Animations & Textures ────────────────────────────────── */
+@keyframes scanline-anim {
+  0% { top: -100%; }
+  100% { top: 100%; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+.cyber-grid {
+  background-image: 
+    linear-gradient(rgba(0, 255, 102, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 102, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.cyber-scanline {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background: linear-gradient(to bottom, transparent, rgba(0, 255, 102, 0.15), transparent);
+  animation: scanline-anim 6s linear infinite;
+  pointer-events: none;
+}
+
+.glow-green {
+  box-shadow: 0 0 10px rgba(0, 255, 102, 0.15);
+}
+
+.glow-green-hover:hover {
+  box-shadow: 0 0 15px rgba(0, 255, 102, 0.25);
+}
+
+/* Monospace small details */
+.technical-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ─── Scrollbar ───────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--color-bg-obsidian); }
+::-webkit-scrollbar-thumb { background: rgba(0, 255, 102, 0.3); }
+::-webkit-scrollbar-thumb:hover { background: var(--color-cyber-green); }
