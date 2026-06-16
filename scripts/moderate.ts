@@ -113,8 +113,7 @@ async function checkDuplicates(record: QueueRecord): Promise<DuplicateNote[]> {
   }))
 }
 
-async function annotateRecord(record: QueueRecord): Promise<void> {
-  const duplicates = await checkDuplicates(record)
+async function annotateRecord(record: QueueRecord, duplicates: DuplicateNote[]): Promise<void> {
   if (duplicates.length === 0) return
 
   const { error } = await supabase
@@ -167,7 +166,8 @@ async function rejectRecord(record: QueueRecord): Promise<void> {
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 async function main(): Promise<void> {
-  console.log('\n🛡️  K-Guardian Admin Moderation Console')
+  const isCron = process.argv.includes('--cron')
+  console.log(`\n🛡️  K-Guardian Admin Auto-Moderation Console${isCron ? ' [Cron Mode]' : ''}`)
   hr()
 
   console.log('📡 Fetching pending contributions...')
@@ -178,40 +178,66 @@ async function main(): Promise<void> {
     return
   }
 
-  console.log(`\n🔍 Running deduplication check on ${pending.length} entries...`)
-  for (const record of pending) {
-    process.stdout.write(`  Checking ID ${record.id}... `)
-    await annotateRecord(record)
-    console.log('done')
-  }
-
-  hr()
-  console.log(`\n📋 Found ${pending.length} pending contribution(s):\n`)
+  console.log(`\n🔍 Scanning and auto-moderating ${pending.length} entries...`)
+  const manualReviewList: QueueRecord[] = []
 
   for (const record of pending) {
-    hr()
-    console.log(`[ID: ${record.id}]  ${record.title}`)
-    console.log(`👤 Reporter: ${record.reporter}  |  🕒 ${new Date(record.created_at).toLocaleString('vi-VN')}`)
-    console.log(`\n📝 Content:\n${record.content}`)
-
-    if (record.ai_notes && record.ai_notes.length > 0) {
-      console.log('\n⚠️  AI DEDUPLICATION WARNING:')
-      for (const note of record.ai_notes) {
-        console.log(`  • [KB #${note.duplicateId}] "${note.duplicateTitle}" — ${note.similarityPercent}% match`)
-      }
-    } else {
-      console.log('\n✅ No duplicates detected.')
+    const duplicates = await checkDuplicates(record)
+    
+    if (duplicates.length > 0) {
+      await annotateRecord(record, duplicates)
     }
 
-    console.log()
-    const answer = await prompt('Decision → [a] Approve  [r] Reject  [s] Skip: ')
+    const maxSimilarity = duplicates.length > 0
+      ? Math.max(...duplicates.map(d => d.similarityPercent))
+      : 0
 
-    if (answer.toLowerCase() === 'a') {
-      await approveRecord(record)
-    } else if (answer.toLowerCase() === 'r') {
+    if (maxSimilarity >= 90) {
+      const bestMatch = duplicates.find(d => d.similarityPercent === maxSimilarity)
+      console.log(`\n[ID: ${record.id}] "${record.title}"`)
+      console.log(`  ❌ AUTO-REJECTED: Độ trùng khớp ${maxSimilarity}% với KB #${bestMatch?.duplicateId} (Vượt ngưỡng 90%)`)
       await rejectRecord(record)
+    } else if (maxSimilarity >= 80) {
+      console.log(`\n[ID: ${record.id}] "${record.title}"`)
+      console.log(`  ⏳ SKIPPED: Độ trùng khớp ${maxSimilarity}% nằm trong khoảng 80% - 89% (Cần duyệt thủ công)`)
+      manualReviewList.push(record)
     } else {
-      console.log(`  ⏭️  Skipped ID ${record.id}.`)
+      console.log(`\n[ID: ${record.id}] "${record.title}"`)
+      console.log(`  ✅ AUTO-APPROVED: Độ trùng khớp tối đa ${maxSimilarity}% < 80% (Mới và an toàn)`)
+      await approveRecord(record)
+    }
+  }
+
+  if (manualReviewList.length > 0) {
+    if (isCron) {
+      hr()
+      console.log(`\n📋 Có ${manualReviewList.length} đóng góp có nghi vấn cần duyệt thủ công sau (Bỏ qua trong chế độ Cron).`)
+    } else {
+      hr()
+      console.log(`\n📋 Bắt đầu duyệt thủ công ${manualReviewList.length} đóng góp có nghi vấn:\n`)
+
+      for (const record of manualReviewList) {
+        hr()
+        console.log(`[ID: ${record.id}]  ${record.title}`)
+        console.log(`👤 Reporter: ${record.reporter}  |  🕒 ${new Date(record.created_at).toLocaleString('vi-VN')}`)
+        console.log(`\n📝 Content:\n${record.content}`)
+
+        console.log('\n⚠️  AI DEDUPLICATION WARNING:')
+        for (const note of record.ai_notes || []) {
+          console.log(`  • [KB #${note.duplicateId}] "${note.duplicateTitle}" — ${note.similarityPercent}% match`)
+        }
+
+        console.log()
+        const answer = await prompt('Decision → [a] Approve  [r] Reject  [s] Skip: ')
+
+        if (answer.toLowerCase() === 'a') {
+          await approveRecord(record)
+        } else if (answer.toLowerCase() === 'r') {
+          await rejectRecord(record)
+        } else {
+          console.log(`  ⏭️  Skipped ID ${record.id} (Giữ lại trạng thái pending).`)
+        }
+      }
     }
   }
 

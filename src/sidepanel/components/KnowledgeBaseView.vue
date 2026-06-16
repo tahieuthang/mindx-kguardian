@@ -501,7 +501,7 @@ function parseContent(content: string) {
                     <div class="font-mono text-[9px] text-cyber-amber font-bold uppercase tracking-wider mb-1">
                       // {{ parseContent(item.content).part1?.header.toUpperCase() }}
                     </div>
-                    <p class="text-slate-300 leading-relaxed font-sans select-text">{{ parseContent(item.content).part1?.body }}</p>
+                    <p class="text-slate-300 leading-relaxed font-sans select-text whitespace-pre-wrap">{{ parseContent(item.content).part1?.body }}</p>
                   </div>
 
                   <!-- Section 2 -->
@@ -509,7 +509,7 @@ function parseContent(content: string) {
                     <div class="font-mono text-[9px] text-cyber-green font-bold uppercase tracking-wider mb-1">
                       // {{ parseContent(item.content).part2?.header.toUpperCase() }}
                     </div>
-                    <p class="text-slate-300 leading-relaxed font-sans select-text">{{ parseContent(item.content).part2?.body }}</p>
+                    <p class="text-slate-300 leading-relaxed font-sans select-text whitespace-pre-wrap">{{ parseContent(item.content).part2?.body }}</p>
                   </div>
                 </div>
 

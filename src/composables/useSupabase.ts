@@ -5,7 +5,7 @@ const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string
 
 const MATCH_THRESHOLD = 0.70
-const MATCH_COUNT = 10
+const MATCH_COUNT = 7
 
 if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
   console.error('[useSupabase] Missing Supabase environment variables.')

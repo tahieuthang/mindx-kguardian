@@ -170,7 +170,7 @@ async function copyText(text: string, type: 'cause' | 'solution' | 'raw') {
                 {{ copiedCause ? '[ COPIED ]' : '[ COPY ]' }}
               </button>
             </div>
-            <p class="text-slate-300 leading-relaxed font-sans select-text">{{ parsedInfo.part1.body }}</p>
+            <p class="text-slate-300 leading-relaxed font-sans select-text whitespace-pre-wrap">{{ parsedInfo.part1.body }}</p>
           </div>
 
           <!-- Section 2 -->
@@ -187,7 +187,7 @@ async function copyText(text: string, type: 'cause' | 'solution' | 'raw') {
                 {{ copiedSolution ? '[ COPIED ]' : '[ COPY ]' }}
               </button>
             </div>
-            <p class="text-slate-300 leading-relaxed font-sans select-text">{{ parsedInfo.part2.body }}</p>
+            <p class="text-slate-300 leading-relaxed font-sans select-text whitespace-pre-wrap">{{ parsedInfo.part2.body }}</p>
           </div>
         </div>
 
